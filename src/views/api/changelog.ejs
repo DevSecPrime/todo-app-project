@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Changelogs | <%= process.env.APP_NAME || "To-Do" %> </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../../../public/assests/todo-logo.png" />
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../../public/assests/todo-logo.png"
+    />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style type="text/css">
+    body {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .text-muted {
+      color: #8492a6 !important;
+    }
+
+    .bg-light {
+      background-color: #add8e624 !important;
+    }
+
+    ul {
+      list-style-position: outside
+    }
+
+    .text-success {
+      color: #0f84ab !important;
+    }
+
+    a {
+      color: #e83e8c !important;
+    }
+  </style>
+</head>
+
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css" integrity="sha256-nwNjrH7J9zS/Ti4twtWX7OsC5QdQHCIKTv5cLMsGo68=" crossorigin="anonymous" />
+  <div class="container">
+    <div class="row justify-content-center">
+      <h3 class="pt-2 pb-4"><%= process.env.APP_NAME || "Wild Watch" %> API Changelogs</h3>
+      <hr><br>
+
+      <div class="col-lg-12 col-md-12 col-12 mx-auto my-auto">
+        <b>Swagger Url: </b>
+        <a href="<%= process.env.APP_URL %>/api/documentation" target="_blank">
+          <%= process.env.APP_URL %>/api/documentation
+        </a>
+        <br>
+        <b>Base Url: </b>
+        <a href="<%= process.env.APP_URL %>/api/v1" target="_blank">
+          <%= process.env.APP_URL %>/api
+        </a>
+        <br>
+        <!-- <b>Terms & condition: </b>
+        <a href="<%= process.env.APP_URL %>/terms-and-condition" target="_blank">
+          <%= process.env.APP_URL %>/terms-and-condition
+        </a>
+        <br>
+        <b>Privacy policy: </b>
+        <a href="<%= process.env.APP_URL %>/privacy-policy" target="_blank">
+          <%= process.env.APP_URL %>/privacy-policy
+        </a>
+        <br>
+        <b>Help: </b>
+        <a href="<%= process.env.APP_URL %>/help" target="_blank">
+          <%= process.env.APP_URL %>/help
+        </a>
+        <br> -->
+        
+        <div class="row d-flex">
+          <div class="col-lg-10" style="border-left:1px solid #88bbcc1a">
+
+            <h6 class="mt-4">21 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/send-otp</code> <br>
+                &#10003; Send OTP,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/verify</code> <br>
+                &#10003; verify OTP,
+                </br>
+              </li>  
+            </ul> 
+           
+            <h6 class="mt-4">22 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/register</code> <br>
+                &#10003; User Registration,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/login</code> <br>
+                &#10003; User Authentication,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>GET /v1/user/profile</code> <br>
+                &#10003; Get User Profile,
+                </br>
+              </li>     
+              <li class="text-muted ml-3 mb-2">
+                <code>PUT /v1/user/updateProfile</code> <br>
+                &#10003; Update user profile,
+                </br>
+              </li>     
+             
+            </ul>   
+
+            <h6 class="mt-4">23 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/resetPasswordToken</code> <br>
+                &#10003; Get reset-password token,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/forgetPassword</code> <br>
+                &#10003; forget password,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/changePassword</code> <br>
+                &#10003; change password,
+                </br>
+              </li>     
+            </ul>   
+
+            <h6 class="mt-4">23 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/resetPasswordToken</code> <br>
+                &#10003; Get reset-password token,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/forgetPassword</code> <br>
+                &#10003; forget password,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/changePassword</code> <br>
+                &#10003; change password,
+                </br>
+              </li>     
+            </ul> 
+
+            <h6 class="mt-4">26 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/user/logout</code> <br>
+                &#10003; Log out user,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>DELETE /v1/user/delete-account</code> <br>
+                &#10003; delete account,
+                </br>
+              </li>
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/group/create-group</code> <br>
+                &#10003; create new group,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>PUT /v1/group/update-group/:id</code> <br>
+                &#10003; update group,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>GET /v1/group/all-group</code> <br>
+                &#10003; Get all-groups,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>DELETE /v1/group/delete</code> <br>
+                &#10003; delete group,
+                </br>
+              </li>    
+              
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/project/create-project</code> <br>
+                &#10003; create new project,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>PUT /v1/project/update-project/:id</code> <br>
+                &#10003; update project,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>GET /v1/project/all-projects</code> <br>
+                &#10003; Get all-projects,
+                </br>
+              </li>     
+
+              <li class="text-muted ml-3 mb-2">
+                <code>DELETE /v1/project/delete-project/:id</code> <br>
+                &#10003; delete project,
+                </br>
+              </li>    
+              
+            </ul> 
+
+            <h6 class="mt-4">27 AUGUST, 2024</h6>
+            <ul class="mt-3">
+              <li class="text-muted ml-3 mb-2">
+                <code>POST /v1/task/create-task</code> <br>
+                &#10003; create new task,
+                </br>
+              </li>
+              
+              <li class="text-muted ml-3 mb-2">
+                <code>PUT /v1/task/update-task/:id</code> <br>
+                &#10003; Update task,
+                </br>
+              </li>
+
+              <li class="text-muted ml-3 mb-2">
+                <code>GET /v1/task/task-by-status/:status</code> <br>
+                &#10003; Get task by status (pending, in progress, completed),
+                </br>
+              </li>
+              
+              <li class="text-muted ml-3 mb-2">
+                <code>PUT /v1/task/remove-task/:id</code> <br>
+                &#10003; Delete task,
+                </br>
+              </li>
+
+              <li class="text-muted ml-3 mb-2">
+                <code>GET /v1/task/getAllTasks <span class="badge badge-success">Updated</span></code> <br>
+                &#10003; Get All Tasks,
+                </br>
+              </li>
+            </ul> 
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

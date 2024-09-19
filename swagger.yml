@@ -1,0 +1,1638 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: My API
+
+components:
+  securitySchemes:
+    bearerAuth:
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+      type: http
+      scheme: bearer
+      bearerFormat: "JWT"
+
+  responses:
+    Unauthorized:
+      description: |
+        - Invalid credentials
+        - Expired access OR refresh token
+        - Revoked access OR refresh token
+        - Not found access token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Unauthorized..."
+    NoContent:
+      description: |
+        - Empty body content
+      content:
+        application/json:
+          schema:
+            type: object
+    UnProcessableEntity:
+      description: validation failure
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Validation error..."
+    Conflict:
+      description: Account is already registered with given email
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Conflict error..."
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Not Found...."
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Bad Request..."
+    InternalServerError:
+      description: "Internal server error..."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Internal Server Error..."
+    PreConditionalFailedException:
+      description: Account not exist...
+      content:
+        application/json:
+          schema:
+            type: object
+    RegisterSuccess:
+      description: User registration
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  userId:
+                    type: number
+                    example: 1
+                  email:
+                    type: string
+                    example: "example@gail.com"
+                  countryCode:
+                    type: string
+                    example: "+91"
+                  phoneNo:
+                    type: number
+                    example: 98989132695
+                  name:
+                    type: string
+                    example: "John Doe"
+                  password:
+                    type: string
+                    example: "1234"
+                  accessToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImp0aSI6IjZhMTIyMWY1OWM5ZGViZmMzOGNiZWNhOTQyOWU3NzA0ODQ2N2IyYzMzYzI5OTAyZjkzYWU5YzUzMTZiYjM4ODQiLCJlbWFpbCI6InJhbmFhcnlhbjYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4MzQwNDcsImV4cCI6MTcyNDkyMDQ0N30.RssD-Vi2eWGjOjJXejgxi624axSxS2mxwqKe8fsoguE"
+    LoginSuccess:
+      description: User registration
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  userId:
+                    type: number
+                    example: 1
+                  email:
+                    type: string
+                    example: "example@gail.com"
+                  countryCode:
+                    type: string
+                    example: "+91"
+                  phoneNo:
+                    type: number
+                    example: 98989132695
+                  name:
+                    type: string
+                    example: "John Doe"
+                  accessToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImp0aSI6IjZhMTIyMWY1OWM5ZGViZmMzOGNiZWNhOTQyOWU3NzA0ODQ2N2IyYzMzYzI5OTAyZjkzYWU5YzUzMTZiYjM4ODQiLCJlbWFpbCI6InJhbmFhcnlhbjYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MjQ4MzQwNDcsImV4cCI6MTcyNDkyMDQ0N30.RssD-Vi2eWGjOjJXejgxi624axSxS2mxwqKe8fsoguE"
+    ForgotPasswordSuccess:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "We sent a reset password link to your email, Please check it."
+    LogoutSuccess:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "User logged out successfully"
+    SendOtpSuccess:
+      description: OTP sent successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Otp sent successfully...."
+              otp:
+                type: string
+                example: "123456"
+
+    GetUserProfileSuccess:
+      description: User profile retrieved successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "User found successfully..."
+              data:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  email:
+                    type: string
+                    example: "example@gmail.com"
+                  name:
+                    type: string
+                    example: "John Doe"
+                  countryCode:
+                    type: string
+                    example: "+91"
+                  phoneNo:
+                    type: number
+                    example: 98989132695
+    verifyOTP:
+      description: OTP verification"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "OTP verified successfully..."
+              otp:
+                type: string
+                example: "123456"
+
+paths:
+  /api/v1/user/register:
+    post:
+      summary: "User registration service"
+      description: "User Registration"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  format: email
+                  example: "test123@gmail.com"
+                countryCode:
+                  type: string
+                  example: "+91"
+                phoneNo:
+                  type: string
+                  example: "98989132695"
+                password:
+                  type: string
+                  format: password
+                  example: "1234"
+      responses:
+        "200":
+          $ref: "#/components/responses/RegisterSuccess"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/UnProcessableEntity"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/user/send-otp:
+    post:
+      summary: "Send OTP for user verification"
+      description: "This API sends an OTP to the user's email for verification."
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test123@gmail.com"
+      responses:
+        "200":
+          $ref: "#/components/responses/SendOtpSuccess"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/user/verify-otp:
+    post:
+      summary: "Verify OTP"
+      description: "This API Verifies the user...."
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test123@gmail.com"
+                otp:
+                  type: string,
+                  example: "123456"
+      responses:
+        "200":
+          $ref: "#/components/responses/verifyOTP"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/user/login:
+    post:
+      summary: "User login"
+      description: "User Authentication"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "test123@gmail.com"
+                password:
+                  type: string
+                  format: password
+                  example: "1234"
+      responses:
+        "200":
+          $ref: "#/components/responses/LoginSuccess"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/user/profile:
+    get:
+      summary: "Get user profile"
+      description: "Fetch the profile of the authenticated user"
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "User profile retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User found successfully..."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: "John Doe"
+                      email:
+                        type: string
+                        example: "johndoe@example.com"
+                      countryCode:
+                        type: string
+                        example: "+91"
+                      phoneNo:
+                        type: number
+                        example: 98989132695
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/user/logout:
+    post:
+      summary: "Log out user"
+      description: "Logs out the authenticated user by revoking their access token."
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "User logged out successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User logged out successfully...."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/user/updateProfile:
+    put:
+      summary: "Update profile"
+      description: "Update the authenticated user's profile information."
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  example: "johndoe@example.com"
+                countryCode:
+                  type: string
+                  example: "+91"
+                phoneNo:
+                  type: string
+                  example: "98989132695"
+      responses:
+        "200":
+          description: "User updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User profile updated successfully...."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: "John Doe"
+                      email:
+                        type: string
+                        example: "johndoe@example.com"
+                      countryCode:
+                        type: string
+                        example: "+91"
+                      phoneNo:
+                        type: number
+                        example: 98989132695
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/user/resetPasswordToken:
+    post:
+      summary: "Request a password reset token"
+      description: "Generates a password reset token for the user with the provided email, and sends a reset link via email."
+      tags:
+        - Forget-Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "johndoe@example.com"
+      responses:
+        "200":
+          description: "Reset password token sent successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Reset password token sent successfully...."
+                  data:
+                    type: string
+                    example: "http://localhost:3000/reset-password?token=12345abcde12345abcde12345abcde"
+        "401":
+          description: "Unauthorized - If the user does not exist with the provided email"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User does not exist with this email...."
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/user/forgetPassword:
+    post:
+      summary: "Reset the user's password"
+      description: "Resets the password for the user associated with the provided token."
+      tags:
+        - Forget-Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: "The token provided in the password reset link."
+                  example: "12345abcde12345abcde12345abcde"
+                newPassword:
+                  type: string
+                  description: "The new password to be set for the user."
+                  example: "NewSecurePassword123!"
+                confirmPassword:
+                  type: string
+                  description: "The confirmation of the new password."
+                  example: "NewSecurePassword123!"
+      responses:
+        "200":
+          description: "Password updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Password updated successfully...."
+        "400":
+          description: "Bad Request - User not found or passwords do not match"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User not found...."
+        "401":
+          description: "Unauthorized - The token has expired"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Token is expired...."
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/user/changePassword:
+    post:
+      summary: "Change the user's password"
+      description: "Allows the user to change their password by providing the old password and a new password."
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  description: "The user's current password."
+                  example: "OldSecurePassword123!"
+                newPassword:
+                  type: string
+                  description: "The new password that the user wants to set."
+                  example: "NewSecurePassword456!"
+      responses:
+        "200":
+          description: "Password updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Password updated successfully...."
+        "400":
+          description: "Bad Request - User not found or password mismatch"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Your password does not match the old password...."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/user/delete-account:
+    delete:
+      summary: "Delete user account"
+      description: "Allows the user to delete their account. The account deletion is permanent."
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "User deleted successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User deleted successfully...."
+        "404":
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User not found....."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/group/create-group:
+    post:
+      summary: "Create a new group"
+      description: "This API creates a new group for the authenticated user. It requires the user to be authenticated and provides the group name to create a new group."
+      tags:
+        - User-Group
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupName:
+                  type: string
+                  example: "Developers"
+                  description: "Name of the group to be created."
+      responses:
+        "200":
+          description: "Group created successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Group created successfully....."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                        description: "ID of the newly created group."
+                      userId:
+                        type: number
+                        example: 123
+                        description: "ID of the user who created the group."
+                      groupName:
+                        type: string
+                        example: "Developers"
+                        description: "Name of the newly created group."
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/group/update-group/{id}:
+    put:
+      summary: "Update an existing group"
+      description: "This API updates the name of an existing group. It requires the user to be authenticated and provides the group ID and new group name to update the group details."
+      tags:
+        - User-Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+          description: "ID of the group to be updated."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupName:
+                  type: string
+                  example: "Developers"
+                  description: "New name of the group."
+      responses:
+        "200":
+          description: "Group updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Group updated successfully....."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                        description: "ID of the updated group."
+                      userId:
+                        type: number
+                        example: 123
+                        description: "ID of the user who updated the group."
+                      groupName:
+                        type: string
+                        example: "Developers"
+                        description: "New name of the group."
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/group/all-groups:
+    get:
+      summary: "Retrieve all groups for the authenticated user"
+      description: "Fetches all groups associated with the currently authenticated user. The user must be authenticated to access this endpoint. Supports search and pagination."
+      tags:
+        - User-Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          required: false
+          description: "Search term to filter groups by name."
+          schema:
+            type: string
+            example: "Developers"
+        - name: page
+          in: query
+          required: false
+          description: "Page number for pagination. Default is 1."
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          required: false
+          description: "Number of items per page for pagination. Default is 10."
+          schema:
+            type: integer
+            example: 10
+      responses:
+        "200":
+          description: "Groups retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Groups found successfully."
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                          description: "ID of the group."
+                        userId:
+                          type: number
+                          example: 123
+                          description: "ID of the user who created the group."
+                        groupName:
+                          type: string
+                          example: "Developers"
+                          description: "Name of the group."
+                  pagination:
+                    type: object
+                    properties:
+                      currentPage:
+                        type: integer
+                        example: 1
+                      perPage:
+                        type: integer
+                        example: 10
+                      totalPages:
+                        type: integer
+                        example: 5
+                      totalItems:
+                        type: integer
+                        example: 50
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/group/delete-group/{id}:
+    delete:
+      summary: "Delete a group"
+      description: "Deletes a specific group identified by the group ID. The user must be authenticated, and the group must exist for deletion."
+      tags:
+        - User-Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the group to be deleted."
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Group deleted successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Group deleted successfully....."
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/project/create-project:
+    post:
+      summary: "Create a new project within a group"
+      description: "Create a new project by providing a group ID and project name."
+      tags:
+        - User-Project
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - groupId
+                - projectName
+              properties:
+                groupId:
+                  type: number
+                  example: 1
+                  description: "The ID of the group where the project will be created."
+                projectName:
+                  type: string
+                  example: "New Project"
+                  description: "The name of the new project."
+      responses:
+        "200":
+          description: "Project created successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "New project created successfully...."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 10
+                        description: "The ID of the newly created project."
+                      groupId:
+                        type: number
+                        example: 1
+                        description: "The ID of the group where the project was created."
+                      projectName:
+                        type: string
+                        example: "New Project"
+                        description: "The name of the newly created project."
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/project/update-project/{id}:
+    put:
+      summary: "Update an existing project"
+      description: "Update the name of an existing project by providing the project ID."
+      tags:
+        - User-Project
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the project to be updated."
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - projectName
+              properties:
+                groupId:
+                  type: number
+                  example: 1
+                  description: "The ID of the group where the project is located."
+                projectName:
+                  type: string
+                  example: "Updated Project Name"
+                  description: "The new name of the project."
+      responses:
+        "200":
+          description: "Project updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Project updated successfully...."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                        description: "The ID of the updated project."
+                      projectName:
+                        type: string
+                        example: "Updated Project Name"
+                        description: "The new name of the project."
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/project/delete-project/{projectId}:
+    delete:
+      summary: "Delete a project"
+      description: "Delete a specific project by providing its ID and associated group ID."
+      tags:
+        - User-Project
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: "The ID of the project to be deleted."
+          schema:
+            type: number
+            example: 1
+        - name: groupId
+          in: query
+          required: true
+          description: "The ID of the group associated with the project."
+          schema:
+            type: number
+            example: 1
+      responses:
+        "200":
+          description: "Project deleted successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Project deleted successfully."
+        "404":
+          description: "Project not found or already deleted."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Project does not exist with this group."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/project/all-projects/{groupId}:
+    get:
+      summary: "Get all projects for the authenticated user"
+      description: "Fetches all projects associated with the authenticated user. Supports search and pagination."
+      tags:
+        - User-Project
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          description: "The ID of the Group which is associated with the project id."
+          schema:
+            type: number
+            example: 1
+        - name: search
+          in: query
+          required: false
+          description: "Search term to filter projects by name."
+          schema:
+            type: string
+            example: "My Project"
+        - name: page
+          in: query
+          required: false
+          description: "Page number for pagination. Default is 1."
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          required: false
+          description: "Number of items per page for pagination. Default is 10."
+          schema:
+            type: integer
+            example: 10
+      responses:
+        "200":
+          description: "All projects fetched successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "All projects fetched successfully."
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        projectName:
+                          type: string
+                          example: "My Project"
+                        groupId:
+                          type: number
+                          example: 1
+                        userId:
+                          type: number
+                          example: 1
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2023-08-28T12:34:56Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2023-08-28T12:34:56Z"
+                  pagination:
+                    type: object
+                    properties:
+                      currentPage:
+                        type: integer
+                        example: 1
+                      perPage:
+                        type: integer
+                        example: 10
+                      totalPages:
+                        type: integer
+                        example: 5
+                      totalItems:
+                        type: integer
+                        example: 50
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/task/create-task:
+    post:
+      summary: "Create a new task"
+      description: "Creates a new task by providing necessary details and uploading a logo image."
+      tags:
+        - User-Task
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: number
+                  description: "ID of the group to which the task belongs."
+                  example: 1
+                projectId:
+                  type: number
+                  description: "ID of the project to which the task belongs."
+                  example: 1
+                taskName:
+                  type: string
+                  description: "Name of the task."
+                  example: "Task Name"
+                description:
+                  type: string
+                  description: "Description of the task."
+                  example: "Task description here."
+                status:
+                  type: string
+                  description: "Status of the task."
+                  example: "pending"
+                startingDate:
+                  type: string
+                  format: date
+                  description: "Starting date of the task."
+                  example: "2024-08-01"
+                endingDate:
+                  type: string
+                  format: date
+                  description: "Ending date of the task."
+                  example: "2024-08-31"
+                logo:
+                  type: string
+                  format: binary
+                  description: "Logo image file for the task."
+      responses:
+        "200":
+          description: "Task created successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "New Task created successfully..."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      groupId:
+                        type: number
+                        example: 1
+                      projectId:
+                        type: number
+                        example: 1
+                      taskName:
+                        type: string
+                        example: "Task Name"
+                      description:
+                        type: string
+                        example: "Task description here."
+                      status:
+                        type: string
+                        example: "pending"
+                      startingDate:
+                        type: string
+                        format: date
+                        example: "2024-08-01"
+                      endingDate:
+                        type: string
+                        format: date
+                        example: "2024-08-31"
+                      logo:
+                        type: string
+                        example: "1682986652923-logo.png"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/task/update-task/{id}:
+    put:
+      summary: "Update an existing task"
+      description: "Updates a task by providing the task ID and new details. Optionally, a new logo image can be uploaded."
+      tags:
+        - User-Task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the task to be updated."
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: number
+                  description: "ID of the group to which the task belongs."
+                  example: 1
+                projectId:
+                  type: number
+                  description: "ID of the project to which the task belongs."
+                  example: 1
+                taskName:
+                  type: string
+                  description: "New name of the task."
+                  example: "Updated Task Name"
+                description:
+                  type: string
+                  description: "New description of the task."
+                  example: "Updated task description here."
+                status:
+                  type: string
+                  description: "New status of the task."
+                  example: "completed"
+                startingDate:
+                  type: string
+                  format: date
+                  description: "New starting date of the task."
+                  example: "2024-08-01"
+                endingDate:
+                  type: string
+                  format: date
+                  description: "New ending date of the task."
+                  example: "2024-08-31"
+                logo:
+                  type: string
+                  format: binary
+                  description: "New logo image file for the task."
+      responses:
+        "200":
+          description: "Task updated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task updated successfully...."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      taskName:
+                        type: string
+                        example: "Updated Task Name"
+                      description:
+                        type: string
+                        example: "Updated task description here."
+                      status:
+                        type: string
+                        example: "completed"
+                      startingDate:
+                        type: string
+                        format: date
+                        example: "2024-08-01"
+                      endingDate:
+                        type: string
+                        format: date
+                        example: "2024-08-31"
+                      logo:
+                        type: string
+                        example: "1682986652923-new-logo.png"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/task/task-by-status:
+    get:
+      summary: "Get tasks by status"
+      description: "Fetch tasks based on their status (e.g., pending, in progress, completed) for a specific user."
+      tags:
+        - User-Task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          required: true
+          description: "The status of the tasks to be fetched. Valid values are 'pending', 'in-progress', or 'completed'."
+          schema:
+            type: string
+            enum:
+              - "pending"
+              - "in-progress"
+              - "completed"
+            example: "pending"
+        - name: groupId
+          in: query
+          required: true
+          description: "ID of the group to which the task belongs."
+          schema:
+            type: number
+            example: 1
+        - name: projectId
+          in: query
+          required: true
+          description: "ID of the project to which the task belongs."
+          schema:
+            type: number
+            example: 1
+        - name: page
+          in: query
+          required: false
+          description: "Page number for pagination. Default is 1."
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          required: false
+          description: "Number of items per page for pagination. Default is 10."
+          schema:
+            type: integer
+            example: 10
+      responses:
+        "200":
+          description: "Tasks fetched successfully based on status"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Tasks found successfully."
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        taskName:
+                          type: string
+                          example: "Example Task"
+                        description:
+                          type: string
+                          example: "Task description here."
+                        status:
+                          type: string
+                          example: "pending"
+                        startingDate:
+                          type: string
+                          format: date
+                          example: "2024-08-01"
+                        endingDate:
+                          type: string
+                          format: date
+                          example: "2024-08-31"
+                        logo:
+                          type: string
+                          example: "1682986652923-logo.png"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 50
+                      lastPage:
+                        type: integer
+                        example: 5
+                      perPage:
+                        type: integer
+                        example: 10
+                      currentPage:
+                        type: integer
+                        example: 2
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/task/getAllTasks:
+    get:
+      summary: "Get all tasks for a user"
+      description: "Fetch all tasks associated with the authenticated user, optionally filtered by group and project, with support for search and pagination."
+      tags:
+        - User-Task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: query
+          required: false
+          description: "ID of the group to which the tasks belong."
+          schema:
+            type: number
+            example: 1
+        - name: projectId
+          in: query
+          required: false
+          description: "ID of the project to which the tasks belong."
+          schema:
+            type: number
+            example: 1
+        - name: search
+          in: query
+          required: false
+          description: "Search term to filter tasks by name."
+          schema:
+            type: string
+            example: "Example Task"
+        - name: page
+          in: query
+          required: false
+          description: "Page number for pagination. Default is 1."
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          required: false
+          description: "Number of tasks per page for pagination. Default is 10."
+          schema:
+            type: integer
+            example: 10
+      responses:
+        "200":
+          description: "Tasks fetched successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "All tasks are found."
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        taskName:
+                          type: string
+                          example: "Example Task"
+                        description:
+                          type: string
+                          example: "Task description here."
+                        status:
+                          type: string
+                          example: "pending"
+                        startingDate:
+                          type: string
+                          format: date
+                          example: "2024-08-01"
+                        endingDate:
+                          type: string
+                          format: date
+                          example: "2024-08-31"
+                        logo:
+                          type: string
+                          example: "1682986652923-logo.png"
+                  pagination:
+                    type: object
+                    properties:
+                      currentPage:
+                        type: integer
+                        example: 1
+                      perPage:
+                        type: integer
+                        example: 10
+                      totalPages:
+                        type: integer
+                        example: 5
+                      totalItems:
+                        type: integer
+                        example: 50
+        "404":
+          description: "No tasks found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No tasks found."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/task/remove-task/{id}:
+    delete:
+      summary: "Remove a task"
+      description: "Delete a specific task by providing its ID, group ID, and project ID. The associated image file will also be removed."
+      tags:
+        - User-Task
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the task to be removed."
+          schema:
+            type: number
+            example: 1
+        - name: groupId
+          in: query
+          required: true
+          description: "The ID of the group to which the task belongs."
+          schema:
+            type: number
+            example: 1
+        - name: projectId
+          in: query
+          required: true
+          description: "The ID of the project to which the task belongs."
+          schema:
+            type: number
+            example: 1
+      responses:
+        "200":
+          description: "Task removed successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task removed successfully."
+        "400":
+          description: "Group ID and Project ID are required."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Group ID and Project ID are required."
+        "404":
+          description: "Task not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task not found."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
